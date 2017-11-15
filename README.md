@@ -1,6 +1,6 @@
 # Introduction
 
-Why Bash? It's ubiquitious and powerful.
+Why Bash? Because it's ubiquitious and powerful.
 
 When used correctly, Bash is like sorcery.
 
@@ -8,7 +8,7 @@ But oh! how it is to be led astray by the wrong spells. The anwer, of course, is
 
 This repository collects essential Bash incanatations for all your infracoding needs.
 
-# The magical spells
+# The magic spells
 
 All the following snippets target Bash version 3, which is very old but is also the version shipped by macOS (thanks Apple!).
 
