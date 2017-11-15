@@ -1,12 +1,14 @@
-# Blissful Bash
+# Introduction
 
 Why Bash? It's ubiquitious and powerful.
 
 When used correctly, Bash is like sorcery.
 
-But you can go wrong by using the wrong spells. The solution, of course, is the school of magic - Copy and Paste.
+But you can go wrong easily by using the wrong spells. The solution, of course, is the universal school of magic - Copy and Paste.
 
-Here are the essential Bash incanatations for your infracoding needs.
+This repository collects essential Bash incanatations for your infracoding needs.
+
+# The magical spells
 
 ## Creating a temp directory
 
