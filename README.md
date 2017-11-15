@@ -17,13 +17,13 @@ All the following snippets target Bash version 3, which is very old but is also 
 Add this at the top of your script:
 
 ```shell
-# start out_temp_dir: v1
+# start our_temp_dir: v1
 our_temp_dir=$(mktemp -d 2>/dev/null || mktemp -d -t 'our_temp_dir')
 function cleanup_temp_dir() { rm -rf "$our_temp_dir" ; } && trap "cleanup_temp_dir" EXIT
-# end out_temp_dir
+# end our_temp_dir
 ```
 
-Then you can use `$our_temp_dir`.
+Then you can use the directory `$our_temp_dir` to store files. The directory will be automatically deleted when the script exits.
 
 This works on Linux and macOS. Credit for the macOS trick goes to [Krinkle](https://unix.stackexchange.com/a/84980/133951).
 
