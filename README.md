@@ -12,6 +12,8 @@ This repository collects essential Bash incanatations for all your infracoding n
 
 All the following snippets target Bash version 3, which is very old but is also the version shipped by macOS (thanks Apple!).
 
+All the tools used in this collection are likely to be preinstalled on most reasonable Unixes (notably macOS and Linux).
+
 ## Creating a temp directory
 
 Add this at the top of your script:
@@ -50,6 +52,20 @@ set -euo pipefail && cd "$(dirname "${BASH_SOURCE[0]}")/.."
 ```
 
 Make sure to adjust the relative path (`/..`) if the script is located at a different point in your project's folder hierarchy.
+
+## Identifiers
+
+You need an identifier? You could use a timestamp (accurate to the second):
+
+```
+id="$(date -u '+%Y%m%d%H%M%S')"
+```
+
+or a random UUID:
+
+```
+id="$(python -c 'import uuid; print uuid.uuid4()')"
+```
 
 ## Contributing
 
