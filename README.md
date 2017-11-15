@@ -16,7 +16,7 @@ All the following snippets target Bash version 3, which is very old but is also 
 
 Add this at the top of your script:
 
-```
+```shell
 # start out_temp_dir: v1
 our_temp_dir=$(mktemp -d 2>/dev/null || mktemp -d -t 'our_temp_dir')
 function cleanup_temp_dir() { rm -rf "$our_temp_dir" ; } && trap "cleanup_temp_dir" EXIT
@@ -25,21 +25,37 @@ function cleanup_temp_dir() { rm -rf "$our_temp_dir" ; } && trap "cleanup_temp_d
 
 Then you can use `$our_temp_dir`.
 
-This works on Linux and macOS.
+This works on Linux and macOS. Credit for the macOS trick goes to [Krinkle](https://unix.stackexchange.com/a/84980/133951).
 
-## Bash scripts rooted in your project home
+## Strict Mode
 
-If your script is located in `$PROJECT_ROOT/bin`, use the following magical incantation:
+Make a habit of starting all your scripts with these two lines:
 
+```shell
+#!/usr/bin/env bash
+set -euo pipefail
 ```
+
+This convention is unofficially called [Strict Mode](http://redsymbol.net/articles/unofficial-bash-strict-mode/). Some peole will say that flags like `-e` and `-u` are inherently broken. They're not wrong, but Bash is even more broken without these flags.
+
+## Situated Bash scripts
+
+Many scripts expect to be called in the context of a project root (usually the directory containing the `.git` folder). I call these "situated scripts". In situtated scripts, it's useful to `chdir` into the project root at the top of the file, so you can rely on using relative paths throughout your code.
+
+If your script is located in the `$PROJECT_ROOT/bin` subdirectory, use the following magical incantation (instead of Strict Mode):
+
+```shell
 #!/usr/bin/env bash
 set -euo pipefail && cd "$(dirname "${BASH_SOURCE[0]}")/.."
 ```
 
-Make sure you adjust the relative path if the script is located at a different point in your project's folder hierarchy.
+Make sure to adjust the relative path (`/..`) if the script is located at a different point in your project's folder hierarchy.
 
 ## Contributing
 
 Suggest spells by submitting a PR!
 
-This collection (c) Paulus Esterhazy <pesterhazy@gmail.com>
+Please file an issue if I failed to give appropriate credit for a spell.
+
+This spellbook (c) Paulus Esterhazy <pesterhazy@gmail.com>
+
