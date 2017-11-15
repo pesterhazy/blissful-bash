@@ -4,11 +4,13 @@ Why Bash? It's ubiquitious and powerful.
 
 When used correctly, Bash is like sorcery.
 
-But you can go wrong easily by using the wrong spells. The solution, of course, is the universal school of magic - Copy and Paste.
+But oh! how it is to be led astray by the wrong spells. The anwer, of course, is the universal school of magic: Copy and Paste.
 
-This repository collects essential Bash incanatations for your infracoding needs.
+This repository collects essential Bash incanatations for all your infracoding needs.
 
 # The magical spells
+
+All the following snippets target Bash version 3, which is very old but is also the version shipped by macOS (thanks Apple!).
 
 ## Creating a temp directory
 
@@ -40,6 +42,4 @@ Make sure you adjust the relative path if the script is located at a different p
 
 Suggest spells by submitting a PR!
 
-License: EPL
-
-(c) Paulus Esterhazy <pesterhazy@gmail.com> and friends from all over the world (= StackOverflow)
+This collection (c) Paulus Esterhazy <pesterhazy@gmail.com>
