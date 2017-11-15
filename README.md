@@ -4,7 +4,7 @@ Why Bash? Because it's ubiquitious and powerful.
 
 When used correctly, Bash is like sorcery.
 
-But oh! how it is to be led astray by the wrong spells. The anwer, of course, is the universal school of magic: Copy and Paste.
+But oh! how easy it is to be led astray when guided by the wrong spells. The anwer, of course, lies in the universal school of magic: the School of Copy and Paste.
 
 This repository collects essential Bash incanatations for all your infracoding needs.
 
