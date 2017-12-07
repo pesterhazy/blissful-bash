@@ -78,6 +78,12 @@ or a random UUID:
 id="$(python -c 'import uuid; print uuid.uuid4()')"
 ```
 
+or generate atomic IDs through an API call ([try it](http://numeri.xyz/)):
+
+```
+id="$(curl --silent --show-error https://api.numeri.xyz/v1/255c994e-f77f-4ff6-b1d9-edab1f763fdb/increase)"
+```
+
 ## Contributing
 
 Suggest spells by submitting a PR!
