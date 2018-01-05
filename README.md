@@ -98,9 +98,9 @@ id="$(curl --silent --show-error https://api.numeri.xyz/v1/255c994e-f77f-4ff6-b1
 
 ## Command line argument parsing
 
-Command line argument parsing is complicated. Here we opt for a simple and pragmatic approach:
+Command line argument parsing is complicated. Here we opt for a simple and pragmatic approach. This snippet supports
 
-- support flags like `--help` or `-h`
+- flags like `--help` or `-h`
 - and arguments like `--path PATH`
 - and any number of positional arguments
 
