@@ -110,7 +110,7 @@ But we
 - or use the `getopt` or `getopts` builtins, which add complexity.
 
 ```shell
-# start our_arg_parsing: v1
+# start our_parse_args: v1
 
 parse_args() {
     args=("$@")
@@ -139,7 +139,7 @@ parse_args() {
     done
 }
 
-# end our_arg_parsing: v1
+# end our_parse_args: v1
 ```
 
 To use this snippet, define a function called `handle_arg` and set global variables depending on the arguments passed. Positional parameters are stored in the array `"${positional[@]}"`. For example:
