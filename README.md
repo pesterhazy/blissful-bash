@@ -10,9 +10,21 @@ This repository collects essential Bash incanatations for all your infracoding n
 
 # The magic spells
 
-All the following snippets target Bash version 3, which is very old but is also the version shipped by macOS (thanks Apple!).
+The following snippets target Bash version 3, which is very old but is also the version shipped by macOS (thanks Apple!).
 
-All the tools used in this collection are likely to be preinstalled on most reasonable Unixes (notably macOS and Linux).
+Any external tool used in this collection is likely to be preinstalled on most reasonable Unixes (notably macOS and Linux).
+
+Snippets are written in such a way that they can be conveniently pasted into a shell script. They are versioned and look like this:
+
+```
+# start name_of_snippet: v1
+
+# .. code ..
+
+# end name_of_snippet
+```
+
+That way you can easily see where the snippet starts and ends. The version number allows you to check if a newer version of this script is available (with improvements or bugfixes). Hopefully updates won't be necessary too frequently.
 
 ## Creating a temp directory
 
