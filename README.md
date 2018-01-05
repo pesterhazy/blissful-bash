@@ -53,6 +53,17 @@ set -euo pipefail && cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 Make sure to adjust the relative path (`/..`) if the script is located at a different point in your project's folder hierarchy.
 
+## Where am I?
+
+Even if changing the project root is not the right choice for your script, it can still be useful to use paths relative to the directory containing the script:
+
+```shell
+our_project_root="$(dirname "${BASH_SOURCE[0]}")/.."
+```
+
+Again this assumes that the script is located in a direct subfolder of the project root. If that's not true in your project, change the `/..` part accordingly.
+
+
 ## Identifiers
 
 You need an identifier? You could use a timestamp (accurate to the second):
