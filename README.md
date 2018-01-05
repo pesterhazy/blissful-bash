@@ -73,6 +73,79 @@ or generate atomic IDs through an API call ([try it](http://numeri.xyz/)):
 id="$(curl --silent --show-error https://api.numeri.xyz/v1/255c994e-f77f-4ff6-b1d9-edab1f763fdb/increase)"
 ```
 
+## Command line argument parsing
+
+Command line argument parsing is complicated. Here we opt for a simple and pragmatic approach:
+
+- support flags like `--help` or `-h`
+- and arguments like `--path PATH`
+- and any number of positional arguments
+
+But we
+
+- don't support coalescing flags like many Unix commands `ls -Arlt`
+- or use the `getopt` or `getopts` builtins, which add complexity.
+
+```shell
+# start our_arg_parsing: v1
+
+parse_args() {
+    args=("$@")
+    positional=()
+    while [ "${#args[@]}" -gt 0 ]; do
+        handled=0
+
+        if declare -f handle_arg > /dev/null; then
+            handle_arg
+        fi
+
+        if [[ "$handled" == 1 ]]; then
+            args=("${args[@]:1}")
+        else
+            case "${args[0]}" in
+                -*)
+                    echo "unknown option: ${args[0]}" >&2
+                    exit 1
+                    ;;
+                *)
+                    positional+=("${args[0]}");
+                    args=("${args[@]:1}")
+                    ;;
+            esac
+        fi
+    done
+}
+
+# end our_arg_parsing: v1
+```
+
+To use this snippet, define a function called `handle_arg` and set global variables depending on the arguments passed. Positional parameters are stored in the array `"${positional[@]}"`. For example:
+
+```
+# set defaults
+
+help=0
+foo=bar
+
+handle_arg() {
+    case "${args[0]}" in
+        --help)
+            help=1
+            handled=1
+            ;;
+        --foo)
+            args=("${args[@]:1}") # shift
+            foo="${args[0]}"
+            handled=1
+            ;;
+    esac
+}
+
+parse_args "$@"
+echo "help=$help, foo=$foo"
+echo "positional: ${positional[@]}"
+```
+
 ## Contributing
 
 Suggest spells by submitting a PR!
