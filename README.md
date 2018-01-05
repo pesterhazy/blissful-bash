@@ -144,7 +144,7 @@ parse_args() {
 
 To use this snippet, define a function called `handle_arg` and set global variables depending on the arguments passed. Positional parameters are stored in the array `"${positional[@]}"`. For example:
 
-```
+```shell
 # set defaults
 
 help=0
