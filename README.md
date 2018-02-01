@@ -10,9 +10,21 @@ This repository collects essential Bash incanatations for all your infracoding n
 
 # The magic spells
 
-All the following snippets target Bash version 3, which is very old but is also the version shipped by macOS (thanks Apple!).
+The following snippets target Bash version 3, which is very old but is also the version shipped by macOS (thanks Apple!).
 
-All the tools used in this collection are likely to be preinstalled on most reasonable Unixes (notably macOS and Linux).
+Any external tool used in this collection is likely to be preinstalled on most reasonable Unixes (notably macOS and Linux).
+
+Snippets are written in such a way that they can be conveniently pasted into a shell script. They are versioned and look like this:
+
+```
+# start name_of_snippet: v1
+
+# .. code ..
+
+# end name_of_snippet
+```
+
+That way you can easily see where the snippet starts and ends. The version number allows you to check if a newer version of this script is available (with improvements or bugfixes). Hopefully updates won't be necessary too frequently.
 
 ## Creating a temp directory
 
@@ -89,6 +101,79 @@ or generate atomic IDs through an API call ([try it](http://numeri.xyz/)):
 
 ```
 id="$(curl --silent --show-error https://api.numeri.xyz/v1/255c994e-f77f-4ff6-b1d9-edab1f763fdb/increase)"
+```
+
+## Command line argument parsing
+
+Command line argument parsing is complicated. Here we opt for a simple and pragmatic approach. This snippet supports
+
+- flags like `--help` or `-h`
+- and arguments like `--path PATH`
+- and any number of positional arguments
+
+But we
+
+- don't support coalescing flags like many Unix commands `ls -Arlt`
+- or use the `getopt` or `getopts` builtins, which add complexity.
+
+```shell
+# start our_parse_args: v1
+
+parse_args() {
+    args=("$@")
+    positional=()
+    while [ "${#args[@]}" -gt 0 ]; do
+        handled=0
+
+        if declare -f handle_arg > /dev/null; then
+            handle_arg
+        fi
+
+        if [[ "$handled" == 1 ]]; then
+            args=("${args[@]:1}")
+        else
+            case "${args[0]}" in
+                -*)
+                    echo "unknown option: ${args[0]}" >&2
+                    exit 1
+                    ;;
+                *)
+                    positional+=("${args[0]}");
+                    args=("${args[@]:1}")
+                    ;;
+            esac
+        fi
+    done
+}
+
+# end our_parse_args: v1
+```
+
+To use this snippet, define a function called `handle_arg` and set global variables depending on the arguments passed. Positional parameters are stored in the array `"${positional[@]}"`. For example:
+
+```shell
+# set defaults
+
+help=0
+foo=bar
+
+handle_arg() {
+    case "${args[0]}" in
+        --help)
+            help=1
+            handled=1
+            ;;
+        --foo)
+            args=("${args[@]:1}") # shift
+            foo="${args[0]}"
+            handled=1
+            ;;
+    esac
+}
+
+parse_args "$@"
+echo "help=$help, foo=$foo"
+echo "positional: ${positional[@]}"
 ```
 
 ## Contributing
