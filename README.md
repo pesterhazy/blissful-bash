@@ -63,6 +63,13 @@ our_project_root="$(dirname "${BASH_SOURCE[0]}")/.."
 
 Again this assumes that the script is located in a direct subfolder of the project root. If that's not true in your project, change the `/..` part accordingly.
 
+Sometimes you need an absolute path to your project root:
+
+```
+our_abs_project_root="$(python -c "import os,sys; print os.path.abspath(sys.argv[1])" "$our_project_root")"
+```
+
+`abspath` makes sure that the path starts with slash character. We [use python](https://stackoverflow.com/questions/284662/how-do-you-normalize-a-file-path-in-bash/3373298#3373298) here because it's available on both macOS and Linux. You can use `os.path.realpath` instead of `os.path.abspath` if you need to resolve symbolic links in addition to finding an absolute path to the folder. In my experience, however, making paths absolute is usually what you want, not canonizing them.
 
 ## Identifiers
 
