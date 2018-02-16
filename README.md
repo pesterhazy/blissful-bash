@@ -176,6 +176,20 @@ echo "help=$help, foo=$foo"
 echo "positional: ${positional[@]}"
 ```
 
+## Variable checks
+
+To check if an environment variable is set, use the following template
+
+```
+[[ -z "${MYVAR-}" ]] && { echo You need to set the MYVAR environment variable && exit 1 ; }
+```
+
+A couple of non-obvious things to note here:
+
+- If you're using `set -e` (and you should), you'll need to refer to the variable as "${MYVAR-}". Without the minus sign, the script will exit due to an undefined variable before it gets a chance to print the error message.
+- Use curly braces surrounded by spaces to group commands without spawning a subshell. Why the spaces? No idea. All I know is that it should look like this: `&& { command; command2 }`
+- For some obscure reason, bash's syntax requires there to be a semicolon or newline before the closing curly brace, in addition to the spaces. If you forget the semicolon, bash will complain with a cryptic parse error.
+
 ## Contributing
 
 Suggest spells by submitting a PR!
