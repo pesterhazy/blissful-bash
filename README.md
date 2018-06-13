@@ -50,7 +50,7 @@ Make a habit of starting all your scripts with these two lines:
 set -euo pipefail
 ```
 
-This convention is unofficially called [Strict Mode](http://redsymbol.net/articles/unofficial-bash-strict-mode/). Some peole will say that flags like `-e` and `-u` are inherently broken. They're not wrong, but Bash is even more broken without these flags.
+This convention is unofficially called [Strict Mode](http://redsymbol.net/articles/unofficial-bash-strict-mode/). Some peole will say that flags like `-e` and `-u` are inherently broken. They're not wrong, but Bash is even more broken without these flags (see the [#Appendix](the Appendix)).
 
 ## Situated Bash scripts
 
@@ -168,6 +168,24 @@ parse_args "$@"
 echo "help=$help, foo=$foo"
 echo "positional: ${positional[@]}"
 ```
+
+## Appendix
+
+### Aren't the "strict mode" switches broken?
+
+Technically yes:
+
+- `-e` is hard to predict. It's broken with prefixed variable assignments like `export x="$(false)"` and (in older versions of Bash) in subshells
+- `-u` is broken with empty arrays in Bash 3 (which ships with MacOS)
+- `-o pipefail` unfortunately has false positives. It exits in cases where SIGPIPE causes a program to quit but doesn't indicate an error condition:
+
+```
+$ set -o pipefail ; cat /usr/share/dict/words | head -1 ; echo $?
+A
+141
+```
+
+Nevertheless, I stand by my assessment. In each case bash's behavior is even more broken without the flags. My solution is to avoid problematic constructs, including prefixed variable assignments, empty arrays, and to disable `-o` when I expect SIGPIPEs.
 
 ## Contributing
 
