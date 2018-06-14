@@ -50,7 +50,7 @@ Make a habit of starting all your scripts with these two lines:
 set -euo pipefail
 ```
 
-This convention is unofficially called [Strict Mode](http://redsymbol.net/articles/unofficial-bash-strict-mode/). Some peole will say that flags like `-e` and `-u` are inherently broken. They're not wrong, but Bash is even more broken without these flags (see the [Appendix](#Appendix)).
+This convention is unofficially called [Strict Mode](http://redsymbol.net/articles/unofficial-bash-strict-mode/). Some peole will say that flags like `-e` and `-u` are inherently broken. They're not wrong, but Bash is even more broken without these flags (see the [Appendix](#arent-the-strict-mode-switches-broken)).
 
 ## Situated Bash scripts
 
