@@ -176,6 +176,15 @@ echo "help=$help, foo=$foo"
 echo "positional: ${positional[@]}"
 ```
 
+## Verifying that an environment variable is set
+
+With `set -eu` you need to take certain precautions. This works:
+
+```
+[[ -z "${MY_VAR-}" ]] && { echo You need to set MY_VAR; exit 1 ; }
+```
+
+
 ## Appendix
 
 ### Aren't the "strict mode" switches broken?
