@@ -181,10 +181,18 @@ echo "positional: ${positional[@]}"
 With `set -eu` you need to take certain precautions. This works:
 
 ```
-[[ -z "${MY_VAR-}" ]] && { echo You need to set MY_VAR; exit 1; }
+[[ -z "${MY_VAR-}" ]] && { echo You need to set MY_VAR >&2; exit 1; }
 ```
 
 Yes, the weird `...; }` syntax is necessary because the `{ }` block is defined in a single line.
+
+## Verifying that a command is installed
+
+You require the binary "wget" to be installed and on the PATH and want to exit with a meaningful error message. Here's how:
+
+```
+command -v wget >/dev/null 2>&1 || { echo "Command wget is not installed." >&2; exit 1; }
+```
 
 ## Appendix
 
