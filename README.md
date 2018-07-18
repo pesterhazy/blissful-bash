@@ -194,6 +194,22 @@ You require the binary "wget" to be installed and on the PATH and want to exit w
 command -v wget >/dev/null 2>&1 || { echo "Command wget is not installed." >&2; exit 1; }
 ```
 
+## Hashing
+
+`/usr/bin/md5sum`? Not installed on MacOS. `/sbin/md5`? Not available on Linux. So we use Python, which is preinstalled on Linux and MacOS both.
+
+```
+# Instead of
+
+hash="$(md5sum hello.txt)" # * not portable and prints out the filename
+
+# Use this
+
+hash="$(python -c 'import hashlib,sys; sys.stdout.write(hashlib.md5(open(sys.argv[1]).read().encode("utf-8")).hexdigest())' hello.txt)"
+```
+
+The command will work with Python 2 and Python 3. `hashlib` also contains other hashing algorithms.
+
 ## Appendix
 
 ### Aren't the "strict mode" switches broken?
