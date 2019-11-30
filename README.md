@@ -203,9 +203,13 @@ command -v wget >/dev/null 2>&1 || { echo "Command wget is not installed." >&2; 
 
 hash="$(md5sum hello.txt)" # * not portable and prints out the filename
 
-# Use this
+# Use this for md5
 
-hash="$(python -c 'import hashlib,sys; sys.stdout.write(hashlib.md5(open(sys.argv[1]).read().encode("utf-8")).hexdigest())' hello.txt)"
+hash="$(python -c "import sys,hashlib; m=hashlib.md5(); f=open(sys.argv[1],'rb') if len(sys.argv)>1 else sys.stdin; m.update(f.read()); print(m.hexdigest())" hello.txt)"
+
+# And this for sha256
+
+hash="$(python -c "import sys,hashlib; m=hashlib.sha256(); f=open(sys.argv[1],'rb') if len(sys.argv)>1 else sys.stdin; m.update(f.read()); print(m.hexdigest())" hello.txt)"
 ```
 
 The command will work with Python 2 and Python 3. `hashlib` also contains other hashing algorithms.
